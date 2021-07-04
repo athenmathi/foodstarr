@@ -1,0 +1,747 @@
+.template-aggregate.node-sweepstakes {
+  .category-page-list {
+    .category-page-list-content  {
+      max-width: 882px;
+      justify-content: space-between;
+      display: flex;
+      flex-wrap: wrap;
+
+      @include tablet {
+        display: grid;
+        grid-template-rows: repeat(2, minmax(560px, auto));
+        gap: 1px 36px;
+        grid-template: "card__large card__large" / 1fr 1fr;
+        margin: 0 auto;
+
+        .card__large {
+          grid-area: card__large;
+        }
+
+        div:empty {
+          position: absolute;
+        }
+      }
+      @include wide-desktop {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: repeat(3, minmax(560px, auto));
+      }
+    }
+  }
+
+  .card {
+    margin-bottom: 24px;
+
+    &:first-child {
+      border-bottom: 1px solid $card-border-color;
+    }
+
+    &:not(:first-child) {
+      border-top: 1px solid $card-border-color;
+      width: 100%;
+    }
+
+    &__summary {
+      @include truncate-ellipsis($truncateLines: 3, $fontSize: $font-details-size,$lineHeight: $font-details-line-height);
+    }
+  }
+}
+
+.card {
+  vertical-align: top;
+  display: flex;
+  margin-bottom: 32px;
+  border-top: 1px solid $card-border-color;
+  width: 100%;
+
+  .component.favorite {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+    background: $favorite-component-background;
+    border-radius: 50%;
+
+    // OPE-385 - This is needed for correct "targeting".
+    // Otherwise svg target will be null.
+    .icon-heart-outline svg {
+      pointer-events: none;
+    }
+
+    .icon-text {
+      @include visually-hidden();
+    }
+  }
+
+  @include tablet {
+    border: 1px solid $card-border-color;
+    display: inline-block;
+    max-width: 270px;
+  }
+
+  &.card__facetedSearchResult {
+    background-color: $card-background-color;
+  }
+
+  &__editorsChoiceBadge {
+    @include editors-choice-circle();
+  }
+
+  // Vertical card style (all breakpoints)
+  &__vertical {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    border: 1px solid $card-border-color;
+    margin-bottom: 0;
+
+    &.card__longform {
+      width: auto;
+      height: auto;
+    }
+
+    .card {
+      &__imageContainer {
+        max-width: unset;
+      }
+
+      &__title {
+        margin-bottom: 0;
+        @include link-title();
+        display: inline;
+      }
+    }
+  }
+
+  &__headline {
+    @include type-title();
+    @include truncate-ellipsis($truncateLines: 2);
+    margin-bottom: 12px;
+    color: $global-color-black;
+
+    &:hover {
+      color: $global-color-black;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    &:active,
+    &:visited {
+      color: $global-color-gray-6;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+  }
+
+  &__edit {
+    display: flex;
+    align-items: center;
+
+    &--button {
+      @include link-details();
+      margin-left: 4px;
+    }
+  }
+
+  &__large {
+    max-width: 576px;
+    min-height: 704px;
+    border: 1px solid $card-border-color;
+    overflow: hidden;
+
+    .card__sweepstakesLinks a {
+      display: inline-block;
+    }
+  }
+
+  &__salePrice,
+  &__originalPrice {
+    @include type-subhead($weight: $normal);
+  }
+
+  &__detailsContainer {
+    padding: 16px;
+  }
+
+  &__eyebrow {
+    display: block;
+    margin-bottom: 8px;
+
+    &-link {
+      @include link-button;
+    }
+  }
+
+  &__swearCount {
+    color: $product-page-fallback-price-color;
+    @include type-details();
+    margin: 0 auto 8px;
+
+    svg {
+      margin-right: 4px;
+      position: relative;
+      top: 4px;
+    }
+  }
+
+  &__fallbackPriceContainer{
+    @include type-tip();
+    color: $product-page-fallback-price-color;
+  }
+
+  &__fallbackPrice {
+    text-decoration: line-through;
+  }
+
+  &__merchant {
+    @include type-tip();
+    color: $product-page-fallback-price-color;
+    margin-top: 8px;
+  }
+
+  &__title {
+    @include type-title;
+    margin: 0 0 8px;
+  }
+
+  &_sponsoredBy {
+    @include type-fine;
+    color: $global-color-gray-6;
+  }
+
+  &__metaDetail {
+    margin-top: 4px;
+    vertical-align: top;
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+
+      svg path {
+        fill: $card-meta-detail-color;
+      }
+
+      &.icon-play-solid {
+        margin-left: -4px;
+      }
+    }
+
+    .recirculation &.card__project .popular__listItemDifficulty .project-meta-item-value,
+    &Text {
+      @include type-details;
+      color: $card-meta-detail-text-color;
+      padding-top: 0;
+    }
+
+    .recirculation &.card__project .popular__listItemDifficulty .project-meta-item-value:after {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &Text {
+      vertical-align: middle;
+      text-transform: capitalize;
+
+      &--new {
+        text-transform: uppercase;
+      }
+    }
+
+    &.card__gallery {
+      text-transform: none;
+    }
+  }
+
+  &__ratingContainer {
+    display: flex;
+    margin: 0 0 8px;
+
+    .component.recipe-ratings {
+      margin: 0;
+
+      .ratings-dropdown-button {
+        display: flex;
+      }
+    }
+
+    .rating-star,
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__ratingCount {
+    display: flex;
+    align-items: baseline;
+    margin-left: 4px;
+    color: $card-rating-count-text-color;
+  }
+
+  &__titleLink {
+    position: relative;
+    @include type-title();
+    @include truncate-ellipsis($truncateLines: 2, $limitMaxHeight: false);
+    color: $global-color-black;
+
+    &:hover {
+      color: $global-color-black;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+
+    &:active,
+    &:visited {
+      color: $global-color-gray-6;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+  }
+
+  &__collectionLink {
+    @include type-title();
+
+    &:hover,
+    &:active,
+    &:visited {
+      text-decoration: none;
+    }
+  }
+
+  &__summary, &__summary p {
+    margin: 8px 0;
+    @include type-details;
+    @include truncate-ellipsis($truncateLines: 2, $fontSize: $font-details-size,$lineHeight: $font-details-line-height);
+  }
+
+  &__author {
+    margin: 8px 0;
+
+    .lazy-image {
+      width: 24px;
+      border-radius: 24px;
+
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__authorImageContainer {
+    margin-right: 4px;
+  }
+
+  &__authorNamePrefix {
+    @include type-details;
+    color: $global-color-gray-6;
+  }
+
+  &__authorName {
+    @include type-details($weight: $bold);
+    color: $global-color-black;
+    margin-left: 4px;
+  }
+
+  &__authorNameLink {
+    text-decoration: underline;
+  }
+
+  &__imageContainer {
+    position: relative;
+    width: 100%;
+    max-width: 140px;
+    min-width: 140px;
+
+    @include tablet {
+      max-width: 100%;
+      min-width: 100%;
+    }
+
+    .recipe-play-icon {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      svg {
+        path:not(.excluded-color) {
+          fill: $card-video-icon-color;
+        }
+
+        @include tablet {
+          height: 32px;
+          width: 32px;
+        }
+      }
+    }
+  }
+
+  &__totalTime {
+    text-transform: uppercase;
+  }
+
+  &__pinterestOverlay {
+    width: 100%;
+    z-index: 0;
+
+    .share-new.square {
+      top: 0;
+      right: 0;
+      bottom: auto;
+      position: absolute;
+      pointer-events: all;
+      width: 44px;
+      height: 44px;
+
+      .share-new__link {
+        @include share-icon-focus(
+          $background: $recirc-share-background,
+          $background-hover: $recirc-share-background-hover,
+          $outline-color: $recirc-share-link-outline-color,
+          $height: 44px,
+          $width: 44px
+        );
+      }
+
+      .icon.icon-pinterest path:first-child {
+        fill: $recirc-share-fill;
+      }
+
+      .icon-text {
+        @include visually-hidden();
+      }
+
+      svg {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  // Sweepstakes card styles.
+  &__sweepstakes {
+    @include tablet {
+      min-height: 560px;
+    }
+
+    .card {
+      &__sweepstakeEnds, &__sweepstakeEnds p  {
+        @include type-details;
+        margin: 0 0 8px;
+      }
+
+      &__sweepstakesLinks {
+        margin: 16px 0 0;
+
+        a {
+          @include type-sweepstakes-card-rulesandfacts();
+        }
+      }
+    }
+
+    .sweepstakes-btn {
+      @include button-contained();
+
+      .icon {
+        vertical-align: top;
+
+        svg path{
+          fill: $sweepstakes-icon-color;
+        }
+      }
+    }
+  }
+
+  // Recirc card styles.
+  &__recirculation {
+    margin: 0;
+    background-color: $global-color-white;
+
+    &:not(.card__vertical) .card__imageContainer {
+      max-width: 140px;
+
+      @include tablet {
+        max-width: 255px;
+      }
+    }
+
+    .card {
+      &__detailsContainer {
+        line-height: 0;
+      }
+
+      &__titleLink {
+        @include reset-link;
+        margin-bottom: 8px;
+
+        .card__title {
+          display: inline;
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+          .card__title {
+            @include hover-title;
+          }
+        }
+      }
+    }
+  }
+
+  &__sweepstakesLinks {
+    margin: 8px 0 0;
+
+    a {
+      @include type-sweepstakes-card-rulesandfacts();
+      display: block;
+
+      @include tablet {
+        display: inline-block;
+      }
+    }
+  }
+
+  &__category {
+    .card {
+      &__promotedRibbon {
+        @include type-recipe-card-ribbon-title();
+        width: 96px;
+        height: 96px;
+        position: absolute;
+        transform: rotate(-45deg);
+        color: $recipe-card-ribbon-title-color;
+        z-index: 1;
+        padding: 21px 21px 43px;
+        text-align: center;
+        top: 0;
+
+        @include tablet {
+          width: 120px;
+          height: 120px;
+          padding: 40px 0;
+          text-align: center;
+        }
+
+        &:before {
+          position: absolute;
+          content: '';
+          background: $recipe-card-ribbon-background;
+          width: 180px;
+          height: 32px;
+          left: -28px;
+          z-index: -1;
+
+          @include tablet {
+            height: 24px;
+          }
+        }
+      }
+    }
+  }
+
+  // Product card styles
+  &__shop,
+  &__swear {
+    .card {
+      &__title {
+        @include link-title();
+        display: inline;
+        padding: 0;
+      }
+    }
+  }
+
+  // Shop-specific styles
+  &__shop {
+    position: relative;
+
+    .erpcContainer {
+      max-width: 270px;
+      @include erpc-styles();
+    }
+  }
+
+  &__collectionCount {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 4px;
+
+      path {
+        fill: $collection-card-grid-icon-fill;
+      }
+    }
+
+    &Text {
+      font-size: 14px;
+      color: $collection-card-count-text-color;
+    }
+  }
+
+  &__collectionGrid {
+    height: 100%;
+    width: 100%;
+
+    &-row-one {
+      .card__gridItem {
+        height: 140px;
+        width: 100%;
+        background: $collection-card-grid-item-background-color;
+
+        @include tablet {
+          height: 180px;
+          margin-bottom: 4px;
+        }
+      }
+
+      .component.lazy-image {
+        img {
+          height: 180px;
+        }
+      }
+    }
+
+    &-row-two {
+      display: none;
+
+      @include tablet {
+        display: flex;
+        justify-content: space-between;
+
+        .card__gridItem {
+          height: 88px;
+          width: 88px;
+          background: $collection-card-grid-item-background-color;
+        }
+      }
+
+      .component.lazy-image {
+        width: 88px;
+      }
+    }
+  }
+
+  &__emptyCollection {
+    height: 100%;
+    width: 100%;
+    background: $collection-card-no-item-background-color-outer;
+    padding: 16px;
+
+    @include tablet {
+      padding: 32px;
+    }
+
+    &-no-item {
+      display: table-cell;
+      border-radius: 50%;
+      text-align: center;
+      vertical-align: middle;
+      background: $collection-card-no-item-background-color-inner;
+      height: 104px;
+      width: 104px;
+      color: $global-color-gray-6;
+
+      @include tablet {
+        height: 208px;
+        width: 208px;
+      }
+    }
+  }
+}
+
+.template-homepage.node-food {
+  .home {
+    > .category-page-list {
+      .category-page-list-content {
+        .card {
+          @include tablet {
+            &:nth-child(odd) {
+              margin-right: 0;
+            }
+
+            &:nth-child(even) {
+              margin-right: 32px;
+            }
+
+            &.rotd {
+              max-width: 574px;
+              margin-right: 0;
+            }
+          }
+
+          @include super-wide-desktop {
+            &:nth-child(odd),
+            &:nth-child(even) {
+              margin-right: unset;
+            }
+
+            &.rotd {
+              margin-right: 32px;
+            }
+          }
+        }
+      }
+    }
+
+    > .category-page-list ~ .category-page-list {
+      .category-page-list-content {
+        .card {
+          @include tablet {
+            &:nth-child(even) {
+              margin-right: 0;
+            }
+
+            &:nth-child(odd) {
+              margin-right: 32px;
+            }
+          }
+
+          @include super-wide-desktop {
+            &:nth-child(odd),
+            &:nth-child(even) {
+              margin-right: unset;
+            }
+          }
+        }
+      }
+    }
+
+    .card__large {
+      &.rotd {
+        // Remove min-height for Recipe of the Day tout
+        min-height: auto;
+        display: inline-block;
+
+        .card__imageContainer {
+          max-width: 100%;
+          min-width: 100%;
+
+          .card__promotedRibbon {
+            @include max-width($tablet - 1) {
+              line-height: 32px;
+              padding: 21px 0;
+            }
+          }
+        }
+
+        .card__detailsContainer {
+          display: flex;
+
+          &-left {
+            flex: 1 1 100%;
+          }
+
+          &-right {
+            margin-left: 16px;
+            flex: 1 1 auto;
+            max-width: 120px;
+          }
+        }
+      }
+    }
+  }
+}
